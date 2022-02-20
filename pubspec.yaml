@@ -1,0 +1,55 @@
+name: bookmystall
+version: 1.0.0+1
+publish_to: none
+description: A new Flutter project.
+environment: 
+  sdk: '>=2.16.0 <3.0.0'
+
+dependencies: 
+  cupertino_icons: ^1.0.2
+  get: 4.6.1
+  flutter: 
+    sdk: flutter
+  flutter_screenutil: ^5.2.0
+  flutter_svg: ^1.0.3
+  country_code_picker: ^2.0.2
+  connectivity_plus: ^2.2.0
+  dio: ^4.0.4
+  shared_preferences: ^2.0.13
+  location: ^4.2.0
+  intl: ^0.17.0
+  
+
+dev_dependencies: 
+  flutter_lints: ^1.0.0
+  flutter_test: 
+    sdk: flutter
+  flutter_native_splash: ^2.0.2
+
+flutter_native_splash:
+  color: "#c6334f"
+  # branding_mode: ce
+  branding: assets/logo.png
+
+flutter: 
+  uses-material-design: true
+
+  assets:
+    - assets/
+    - assets/home/
+
+  fonts: 
+    - family: Roboto
+      fonts: 
+        - asset: assets/fonts/Roboto-Black.ttf
+          weight: 900
+        - asset: assets/fonts/Roboto-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Roboto-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Roboto-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Roboto-Thin.ttf
+          weight: 300
+        - asset: assets/fonts/Roboto-Light.ttf
+          weight: 100

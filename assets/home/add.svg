@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="27.298" height="27.298" viewBox="0 0 27.298 27.298">
+  <g id="CreateEvent_Button" transform="translate(0.5 0.5)">
+    <g id="Group_245" data-name="Group 245">
+      <path id="Icon_material-add-to-photos" data-name="Icon material-add-to-photos" d="M32.011,3H12.287A3.3,3.3,0,0,0,9,6.287V26.011A3.3,3.3,0,0,0,12.287,29.3H32.011A3.3,3.3,0,0,0,35.3,26.011V6.287A3.3,3.3,0,0,0,32.011,3Z" transform="translate(-9 -3)" fill="none" stroke="#000" stroke-width="1"/>
+      <path id="Icon_ionic-ios-add" data-name="Icon ionic-ios-add" d="M23.639,15.815H17.763V9.939a.974.974,0,1,0-1.948,0v5.876H9.939a.974.974,0,0,0,0,1.948h5.876v5.876a.974.974,0,0,0,1.948,0V17.763h5.876a.974.974,0,0,0,0-1.948Z" transform="translate(-3.931 -3.64)"/>
+    </g>
+  </g>
+</svg>
