@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'widgets/row_container.dart';
 
@@ -239,21 +240,26 @@ class EventView extends GetView<HomeController> {
                         child: Text('SHARE'),
                       ),
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                          border: Border.all(),
-                          color: Colors.black,
-                          borderRadius: BorderRadius.circular(6)),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 40.w,
-                          vertical: 8.h,
-                        ),
-                        child: Text(
-                          'Call Now',
-                          style: MyTextstyles.mediumTextStyle.copyWith(
-                            color: AppColors.whiteColor,
-                            fontWeight: FontWeight.normal,
+                    InkWell(
+                      onTap: () {
+                        launch('tel://${event.mobileNumber}');
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            border: Border.all(),
+                            color: Colors.black,
+                            borderRadius: BorderRadius.circular(6)),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 40.w,
+                            vertical: 8.h,
+                          ),
+                          child: Text(
+                            'Call Now',
+                            style: MyTextstyles.mediumTextStyle.copyWith(
+                              color: AppColors.whiteColor,
+                              fontWeight: FontWeight.normal,
+                            ),
                           ),
                         ),
                       ),

@@ -128,7 +128,10 @@ class HomeView extends GetView<HomeController> {
                                                       Text(
                                                         month,
                                                         style: MyTextstyles
-                                                            .cardTextStyle,
+                                                            .cardTextStyle
+                                                            .copyWith(
+                                                          fontSize: 19.sp,
+                                                        ),
                                                       ),
                                                       Text(
                                                         weekDay,

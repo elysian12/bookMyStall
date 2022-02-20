@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 
 import '../../../../common/styles/colors.dart';
 import '../../../../common/styles/text_style.dart';
-import '../../../../routes/app_pages.dart';
 import 'otp_field.dart';
 
 class OtpBottomSheet extends StatelessWidget {
@@ -100,9 +99,15 @@ class OtpBottomSheet extends StatelessWidget {
             height: 30.h,
           ),
           TextButton(
-            onPressed: () {
-              // Get.toNamed(Routes.BOTTOMNAVIGATION);
-            },
+            onPressed: loginController.otpTimer.value == 0
+                ? () {
+                    print('---resend-');
+                    loginController.requestOtp(
+                      int.parse(loginController.loginController.text),
+                    );
+                    // Get.toNamed(Routes.BOTTOMNAVIGATION);
+                  }
+                : null,
             child: Obx(() {
               return Text(
                 'Resend OTP',
