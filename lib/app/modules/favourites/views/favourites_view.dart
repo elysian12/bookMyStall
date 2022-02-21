@@ -7,8 +7,9 @@ import 'package:intl/intl.dart';
 
 import '../../../common/styles/colors.dart';
 import '../../../common/styles/text_style.dart';
-import '../../home/views/home_view.dart';
+
 import '../../home/views/widgets/favourite_icon.dart';
+import '../../home/views/widgets/toogle_container.dart';
 import '../controllers/favourites_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

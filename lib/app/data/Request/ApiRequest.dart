@@ -38,7 +38,10 @@ class ApiRequest {
     _dio().post(url, queryParameters: data, data: body).then((res) {
       if (onSuccess != null) onSuccess(res.data);
     }).catchError((error) {
-      if (onError != null) onError(error);
+      if (onError != null) {
+        onError(error);
+        throw error;
+      }
     });
   }
 }

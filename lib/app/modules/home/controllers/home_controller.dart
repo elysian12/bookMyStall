@@ -3,35 +3,23 @@ import 'package:bookmystall/app/data/providers/events_provider.dart';
 import 'package:bookmystall/app/data/services/sharedServices/shared_service.dart';
 import 'package:bookmystall/app/modules/home/model/city_model.dart';
 import 'package:bookmystall/app/modules/home/model/events_api_model.dart';
-import 'package:bookmystall/app/modules/home/model/events_model.dart';
 import 'package:bookmystall/app/modules/home/model/favourite_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../common/costants/helper.dart';
 
 class HomeController extends GetxController {
   late PageController listPageController;
   FavouriteModel favouriteModel = FavouriteModel();
   late ScrollController scrollController;
   final List<CityModel> cities = [
-    CityModel(img: '', label: 'Banglore'),
-    CityModel(img: '', label: 'Agra'),
-    CityModel(img: '', label: 'Mumbai'),
-    CityModel(img: '', label: 'Hyderbad'),
-    CityModel(img: '', label: 'Goa'),
-    CityModel(img: '', label: 'Gujarat'),
-    CityModel(img: '', label: 'Ahmedabad'),
-    CityModel(img: '', label: 'Chennai'),
-  ];
-
-  final List<bool> citiesLogic = [
-    true,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
+    CityModel(
+        img: '${Helper.homeIcon}1.png', label: 'Banglore', isSelected: true),
+    CityModel(img: '${Helper.homeIcon}2.png', label: 'Agra'),
+    CityModel(img: '${Helper.homeIcon}3.png', label: 'Mumbai'),
+    CityModel(img: '${Helper.homeIcon}4.png', label: 'Hyderabad'),
+    CityModel(img: '${Helper.homeIcon}5.png', label: 'Goa'),
   ];
 
   List<bool> filterToggle = [
@@ -94,22 +82,26 @@ class HomeController extends GetxController {
   }
 
   void setCity(int index) {
-    for (var i = 0; i < citiesLogic.length; i++) {
+    for (var i = 0; i < cities.length; i++) {
       if (i == index) {
         print(i);
-        citiesLogic[i] = true;
+        print(cities[i].label);
+        cities[i].isSelected = true;
+        requestEvents(cities[i].label);
+        eventsData.refresh();
       } else {
-        citiesLogic[i] = false;
+        cities[i].isSelected = false;
+        // requestEvents(cities[i].label);
       }
     }
     update();
   }
 
   //api functions
-  void requestEvents() async {
+  void requestEvents(String? city) async {
     final token = await MySharedService().getSharedToken();
     EventProvider().requestEvent(
-      cityName: 'Hyderabad',
+      cityName: city!,
       token: token!,
       beforeSend: () {},
       onSuccess: (res) {
@@ -146,7 +138,7 @@ class HomeController extends GetxController {
   void onInit() {
     listPageController = PageController();
     scrollController = ScrollController();
-    requestEvents();
+    requestEvents('Hyderabad');
     super.onInit();
   }
 

@@ -127,7 +127,7 @@ class LoginController extends GetxController {
                     .setSharedService(res.userData!.authToken!)
                     .then((value) {
                   print('---------Shared service is compledted---------');
-                  Get.toNamed(Routes.BOTTOMNAVIGATION);
+                  Get.offAllNamed(Routes.BOTTOMNAVIGATION);
                 });
               } else {
                 Get.dialog<AlertDialog>(AlertDialog(

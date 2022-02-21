@@ -8,6 +8,7 @@ abstract class Routes {
   static const FAVOURITES = _Paths.FAVOURITES;
   static const LOGIN = _Paths.LOGIN;
   static const SETTINGS = _Paths.SETTINGS;
+  static var INITIAL;
 }
 
 abstract class _Paths {
