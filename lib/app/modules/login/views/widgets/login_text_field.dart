@@ -26,6 +26,9 @@ class LoginTextField extends StatelessWidget {
       child: Stack(
         children: [
           TextFormField(
+            style: MyTextstyles.mediumTextStyle.copyWith(
+              color: Colors.black,
+            ),
             cursorColor: AppColors.pinkColor,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
@@ -38,10 +41,10 @@ class LoginTextField extends StatelessWidget {
               prefixIconConstraints: BoxConstraints(),
 
               prefixIcon: SizedBox(
-                height: Get.height * 0.10,
+                // height: Get.height * 0.10,
                 // width: Get.width * 0.25,
                 child: Padding(
-                  padding: EdgeInsets.only(bottom: 1),
+                  padding: EdgeInsets.only(bottom: 0),
                   child: CountryCodePicker(
                     initialSelection: 'In',
                     showCountryOnly: false,

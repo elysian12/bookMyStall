@@ -1,4 +1,3 @@
-import 'package:bookmystall/app/modules/home/controllers/home_controller.dart';
 import 'package:bookmystall/app/modules/home/views/event_view.dart';
 import 'package:flutter/material.dart';
 
@@ -112,8 +111,11 @@ class FavouritesView extends GetView<FavouritesController> {
                                   },
                                 ),
                               )
-                            : Center(
-                                child: CircularProgressIndicator(),
+                            : Container(
+                                width: Get.width,
+                                height: Get.height * 0.732.h,
+                                alignment: Alignment.center,
+                                child: Text('No Favourite Events'),
                               );
                       }),
                     );

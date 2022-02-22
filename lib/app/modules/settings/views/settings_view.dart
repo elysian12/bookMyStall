@@ -1,5 +1,6 @@
 import 'package:bookmystall/app/common/styles/colors.dart';
 import 'package:bookmystall/app/common/styles/text_style.dart';
+import 'package:bookmystall/app/modules/bottomnavigation/controllers/bottomnavigation_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -79,11 +80,16 @@ class SettingsView extends GetView<SettingsController> {
                 SizedBox(
                   height: 15.h,
                 ),
-                Text(
-                  'Saved Envents',
-                  style: MyTextstyles.mediumTextStyle.copyWith(
-                    fontSize: Get.width / 23,
-                    fontWeight: FontWeight.w300,
+                InkWell(
+                  onTap: () {
+                    Get.put(BottomNavigationController()).changePage(1);
+                  },
+                  child: Text(
+                    'Saved Events',
+                    style: MyTextstyles.mediumTextStyle.copyWith(
+                      fontSize: Get.width / 23,
+                      fontWeight: FontWeight.w300,
+                    ),
                   ),
                 ),
                 SizedBox(

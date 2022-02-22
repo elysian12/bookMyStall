@@ -1,3 +1,4 @@
+import 'package:bookmystall/app/common/styles/text_style.dart';
 import 'package:bookmystall/app/data/providers/event_favourite_provider.dart';
 import 'package:bookmystall/app/data/providers/events_provider.dart';
 import 'package:bookmystall/app/data/services/sharedServices/shared_service.dart';
@@ -7,6 +8,7 @@ import 'package:bookmystall/app/modules/home/model/events_api_model.dart';
 import 'package:bookmystall/app/modules/home/model/favourite_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../common/costants/helper.dart';
 
@@ -16,7 +18,7 @@ class HomeController extends GetxController {
   late ScrollController scrollController;
   final List<CityModel> cities = [
     CityModel(
-        img: '${Helper.homeIcon}1.png', label: 'Banglore', isSelected: true),
+        img: '${Helper.homeIcon}1.png', label: 'Banglore', isSelected: false),
     CityModel(img: '${Helper.homeIcon}2.png', label: 'Agra'),
     CityModel(img: '${Helper.homeIcon}3.png', label: 'Mumbai'),
     CityModel(img: '${Helper.homeIcon}4.png', label: 'Hyderabad'),
@@ -141,12 +143,101 @@ class HomeController extends GetxController {
     );
   }
 
+  void showCity() async {
+    // requestEvents(cities[3].label);
+    final sharedCity = await MySharedService().getSharedCity();
+    if (sharedCity == null) {
+      Get.dialog<Dialog>(Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        insetPadding: EdgeInsets.symmetric(
+          horizontal: 100.w,
+          vertical: 250.h,
+        ),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Column(
+              children: List.generate(cities.length + 1, (index) {
+            return cities.length == index
+                ? InkWell(
+                    onTap: () {
+                      requestEvents(cities[3].label);
+                      cities[3].isSelected = true;
+                      update();
+                      Get.back();
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      // width: Get.width * 0.05,
+                      // color: Colors.red,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(vertical: 14.h),
+                        child: Text(
+                          'Cancel',
+                          style: MyTextstyles.cardTextStyle.copyWith(
+                            fontWeight: FontWeight.normal,
+                            fontSize: 18.sp,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                : InkWell(
+                    onTap: () {
+                      requestEvents(cities[index].label);
+                      cities[index].isSelected = true;
+                      MySharedService().setSharedCity(cities[index].label);
+                      update();
+                      Get.back();
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      // width: Get.width * 0.05,
+                      // color: Colors.red,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(vertical: 12.h),
+                        child: Text(
+                          cities[index].label,
+                          style: MyTextstyles.cardTextStyle.copyWith(
+                            fontWeight: FontWeight.normal,
+                            fontSize: 18.sp,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+          })),
+        ),
+      ));
+    } else {
+      requestEvents(sharedCity);
+      for (var i = 0; i < cities.length; i++) {
+        if (sharedCity == cities[i].label) {
+          cities[i].isSelected = true;
+          update();
+        }
+      }
+    }
+  }
+
   @override
   void onInit() {
     listPageController = PageController();
     scrollController = ScrollController();
-    requestEvents('Hyderabad');
+
     super.onInit();
+  }
+
+  @override
+  void onReady() {
+    showCity();
+    super.onReady();
   }
 
   @override

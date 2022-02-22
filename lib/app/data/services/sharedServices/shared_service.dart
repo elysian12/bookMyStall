@@ -15,6 +15,13 @@ class MySharedService {
     return isDone;
   }
 
+  Future<bool> setSharedCity(String city) async {
+    final prefs = await SharedPreferences.getInstance();
+    print('----Shared-phone-----------$city----');
+    bool isDone = await prefs.setString('city', city);
+    return isDone;
+  }
+
   Future<String?> getSharedToken() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString('authToken');
@@ -23,5 +30,10 @@ class MySharedService {
   Future<String?> getSharedPhone() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString('phone');
+  }
+
+  Future<String?> getSharedCity() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('city');
   }
 }

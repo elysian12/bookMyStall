@@ -50,7 +50,7 @@ class OtpTextField extends StatelessWidget {
               borderSide: BorderSide(color: AppColors.fontColor),
             ),
             focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: AppColors.fontColor),
+              borderSide: BorderSide(color: AppColors.pinkColor),
             ),
           ),
         ),
