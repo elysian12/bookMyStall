@@ -75,34 +75,36 @@ class EventContainer extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              event.eventName!,
-                              style: MyTextstyles.mediumTextStyle,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            SizedBox(
-                              height: 5.h,
-                            ),
-                            Text(
-                              event.venue!.firstLine!,
-                              style: MyTextstyles.mediumTextStyle,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            SizedBox(
-                              height: 5.h,
-                            ),
-                            Text(
-                              event.stallDetails![0].typeOfStall! +
-                                  '  ${event.stallDetails![0].pricePerDay}/-',
-                              style: MyTextstyles.mediumTextStyle,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ],
-                        ),
+                        child: event.venue == null
+                            ? Text('no data')
+                            : Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    event.eventName!,
+                                    style: MyTextstyles.mediumTextStyle,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  SizedBox(
+                                    height: 5.h,
+                                  ),
+                                  Text(
+                                    event.venue!.firstLine!,
+                                    style: MyTextstyles.mediumTextStyle,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  SizedBox(
+                                    height: 5.h,
+                                  ),
+                                  Text(
+                                    event.stallDetails![0].typeOfStall! +
+                                        '  ${event.stallDetails![0].pricePerDay}/-',
+                                    style: MyTextstyles.mediumTextStyle,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ],
+                              ),
                       ),
                       GetBuilder<HomeController>(builder: (controller) {
                         return FavouriteIconButton(

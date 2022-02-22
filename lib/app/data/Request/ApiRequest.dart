@@ -22,26 +22,42 @@ class ApiRequest {
     Function()? beforeSend,
     Function(dynamic data)? onSuccess,
     Function(dynamic error)? onError,
-  }) {
-    _dio().get(url, queryParameters: data).then((res) {
-      if (onSuccess != null) onSuccess(res.data);
-    }).catchError((error) {
+  }) async {
+    try {
+      final response = await _dio().get(url, queryParameters: data);
+      if (onSuccess != null) onSuccess(response.data);
+    } on DioError catch (error) {
       if (onError != null) onError(error);
-    });
+      print(error.message);
+    }
+
+    // })
+    // .catchError((error) {
+    //   if (onError != null) onError(error);
+    // });
   }
 
   void post({
     Function()? beforeSend,
     Function(dynamic data)? onSuccess,
     Function(dynamic error)? onError,
-  }) {
-    _dio().post(url, queryParameters: data, data: body).then((res) {
-      if (onSuccess != null) onSuccess(res.data);
-    }).catchError((error) {
+  }) async {
+    try {
+      final response =
+          await _dio().post(url, queryParameters: data, data: body);
+      if (onSuccess != null) onSuccess(response.data);
+    } on DioError catch (error) {
       if (onError != null) {
         onError(error);
-        throw error;
+        print(error.message);
       }
-    });
+    }
+
+    // .catchError((error) {
+    //   if (onError != null) {
+    //     onError(error);
+    //     throw error;
+    //   }
+    // });
   }
 }

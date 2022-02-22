@@ -41,16 +41,14 @@ class MyApp extends StatelessWidget {
               child: FutureBuilder(
                   future: MySharedService().getSharedToken(),
                   builder: (context, snapshot) {
-                    return snapshot.connectionState == ConnectionState.waiting
-                        ? MaterialApp()
-                        : GetMaterialApp(
-                            debugShowCheckedModeBanner: false,
-                            title: "Book My Stall",
-                            initialRoute: snapshot.data != null
-                                ? Routes.BOTTOMNAVIGATION
-                                : Routes.LOGIN,
-                            getPages: AppPages.routes,
-                          );
+                    return GetMaterialApp(
+                      debugShowCheckedModeBanner: false,
+                      title: "Book My Stall",
+                      initialRoute: snapshot.data != null
+                          ? Routes.BOTTOMNAVIGATION
+                          : Routes.LOGIN,
+                      getPages: AppPages.routes,
+                    );
                   }),
             );
           },

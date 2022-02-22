@@ -22,18 +22,14 @@ class EventView extends GetView<HomeController> {
         DateFormat().format(DateTime.parse(event.toTime!)).split(' ')[0];
     final fromMonth =
         DateFormat().format(DateTime.parse(event.fromTime!)).split(' ')[0];
-    final toDay = int.parse(
-      DateFormat()
-          .format(DateTime.parse(event.toTime!))
-          .split(' ')[1]
-          .replaceRange(2, null, ' '),
-    );
-    final fromDay = int.parse(
-      DateFormat()
-          .format(DateTime.parse(event.fromTime!))
-          .split(' ')[1]
-          .replaceRange(2, null, ' '),
-    );
+    final toDay = DateTime.parse(event.toTime!).day;
+    // .split(' ')[1]
+    // .replaceRange(2, null, ' '),
+
+    final fromDay = DateTime.parse(event.fromTime!).day;
+    // .split(' ')[1]
+    // .replaceRange(2, null, ' '),
+
     return Scaffold(
         backgroundColor: AppColors.whiteColor,
         appBar: AppBar(
@@ -108,17 +104,19 @@ class EventView extends GetView<HomeController> {
                     SizedBox(
                       height: 20.h,
                     ),
-                    Text(
-                      event.venue!.firstLine! +
-                          '\n' +
-                          event.venue!.secondLine! +
-                          '\n' +
-                          event.city!,
-                      style: MyTextstyles.mediumTextStyle.copyWith(
-                        color: Colors.black,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
+                    event.venue == null
+                        ? Text('no data available')
+                        : Text(
+                            event.venue!.firstLine! +
+                                '\n' +
+                                event.venue!.secondLine! +
+                                '\n' +
+                                event.city!,
+                            style: MyTextstyles.mediumTextStyle.copyWith(
+                              color: Colors.black,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
                     SizedBox(
                       height: 30.h,
                     ),

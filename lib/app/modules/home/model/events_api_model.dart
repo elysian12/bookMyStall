@@ -69,7 +69,7 @@ class Data {
   String? pendingLeads;
   List<String>? eventType;
   String? venueType;
-  Null? standeeBannerDetails;
+  List<StandeeBannerDetails>? standeeBannerDetails;
   bool? isFavorited;
   Chat? chat;
 
@@ -138,7 +138,12 @@ class Data {
     pendingLeads = json['pendingLeads'];
     eventType = json['eventType'].cast<String>();
     venueType = json['venueType'];
-    standeeBannerDetails = json['standeeBannerDetails'];
+    if (json['standeeBannerDetails'] != null) {
+      standeeBannerDetails = <StandeeBannerDetails>[];
+      json['standeeBannerDetails'].forEach((v) {
+        standeeBannerDetails!.add(new StandeeBannerDetails.fromJson(v));
+      });
+    }
     isFavorited = json['isFavorited'];
     chat = json['chat'] != null ? new Chat.fromJson(json['chat']) : null;
   }
@@ -234,7 +239,7 @@ class StallDetails {
   String? typeOfStall;
   String? pricePerDay;
   String? pricePerEvent;
-  Null? lastUpdatedTime;
+  String? lastUpdatedTime;
   String? tables;
   String? chairs;
   String? stallModel;
@@ -311,6 +316,25 @@ class CityBanners {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['bannerImage'] = this.bannerImage;
     data['eventData'] = this.eventData;
+    return data;
+  }
+}
+
+class StandeeBannerDetails {
+  String? cost;
+  String? description;
+
+  StandeeBannerDetails({this.cost, this.description});
+
+  StandeeBannerDetails.fromJson(Map<String, dynamic> json) {
+    cost = json['cost'];
+    description = json['description'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['cost'] = this.cost;
+    data['description'] = this.description;
     return data;
   }
 }

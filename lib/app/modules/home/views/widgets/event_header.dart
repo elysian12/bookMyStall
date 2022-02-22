@@ -99,7 +99,12 @@ class EventHeader extends StatelessWidget {
                   ],
                 ),
                 decoration: BoxDecoration(
-                  image: DecorationImage(image: NetworkImage(event.imageURL1!)),
+                  image: DecorationImage(
+                    image: NetworkImage(
+                      event.imageURL1!,
+                    ),
+                    fit: BoxFit.cover,
+                  ),
                   color: AppColors.whiteColor,
                   borderRadius: BorderRadius.circular(18),
                   boxShadow: [

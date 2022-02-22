@@ -106,7 +106,11 @@ class HomeController extends GetxController {
       beforeSend: () {},
       onSuccess: (res) {
         print('-----------${res.success}--------1-----${res.message}');
-        eventsData.value = res.data!;
+        if (res.success!) {
+          eventsData.value = res.data!;
+        } else {
+          eventsData.value = [];
+        }
       },
       onError: (error) {
         print('---------------$error-----------');
