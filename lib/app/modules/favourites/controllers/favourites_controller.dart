@@ -1,80 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../home/model/events_model.dart';
+import '../../../data/providers/event_favourite_provider.dart';
+import '../../../data/services/sharedServices/shared_service.dart';
+import '../../home/model/events_api_model.dart';
+import '../../home/model/favourite_model.dart';
 
 class FavouritesController extends GetxController {
   late PageController favouritePageController;
+  FavouriteModel favouriteModel = FavouriteModel();
 
-  final RxList<Events> events = [
-    Events(
-      month: 'April',
-      weekDay: 'Sunday',
-      title: 'Fashion Trends',
-      date: 21,
-      address: 'Eat Street, Tank Bund',
-      stock: 'Full Stall',
-      price: 10000,
-      isFavoutite: true,
-      newlyAdded: false,
-    ),
-    Events(
-      month: 'April',
-      weekDay: 'Sunday',
-      title: 'Fashion Trends',
-      date: 21,
-      address: 'Eat Street, Tank Bund',
-      stock: 'Full Stall',
-      price: 10000,
-      isFavoutite: true,
-      newlyAdded: false,
-    ),
-    Events(
-      month: 'April',
-      weekDay: 'Sunday',
-      title: 'Fashion Trends',
-      date: 21,
-      address: 'Eat Street, Tank Bund',
-      stock: 'Full Stall',
-      price: 10000,
-      isFavoutite: false,
-      newlyAdded: false,
-    ),
-    Events(
-      month: 'April',
-      weekDay: 'Sunday',
-      title: 'Fashion Trends',
-      date: 21,
-      address: 'Eat Street, Tank Bund',
-      stock: 'Full Stall',
-      price: 10000,
-      isFavoutite: true,
-      newlyAdded: true,
-    ),
-    Events(
-      month: 'April',
-      weekDay: 'Sunday',
-      title: 'Fashion Trends',
-      date: 21,
-      address: 'Eat Street, Tank Bund',
-      stock: 'Full Stall',
-      price: 10000,
-      isFavoutite: false,
-      newlyAdded: false,
-    ),
-  ].obs;
-
-  final List<bool> citiesLogic = [
-    true,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-  ];
-
+  //initial
+  RxList<Data> eventsData = <Data>[].obs;
   List<bool> filterToggle = [
     true,
     false,
@@ -82,23 +19,6 @@ class FavouritesController extends GetxController {
   ];
 
   //functions
-  void setFilter(index) {
-    for (var i = 0; i < filterToggle.length; i++) {
-      if (i == index) {
-        // listPageController.animateToPage(
-        //   index,
-        //   duration: Duration(milliseconds: 300),
-        //   curve: Curves.easeOut,
-        // );
-        filterToggle[index] = true;
-      } else {
-        filterToggle[i] = false;
-      }
-    }
-
-    update();
-  }
-
   void changeFilter(index) {
     for (var i = 0; i < filterToggle.length; i++) {
       if (i == index) {
@@ -116,16 +36,46 @@ class FavouritesController extends GetxController {
     update();
   }
 
-  void setFavourite(int index) {
-    for (var i = 0; i < events.length; i++) {
-      if (i == index) {
-        if (events[i].isFavoutite == true) {
-          events[i].isFavoutite = false;
-        } else {
-          events[i].isFavoutite = true;
+  void setFavourite(index, int eventId) {
+    if (eventsData.isNotEmpty) {
+      for (var i = 0; i < eventsData.length; i++) {
+        if (i == index) {
+          if (eventsData[i].isFavorited == true) {
+            eventsData[i].isFavorited = false;
+            favouriteEvent(isFavourite: false, eventId: eventId);
+            eventsData.removeAt(i);
+            eventsData.refresh();
+          } else {
+            eventsData[i].isFavorited = true;
+            favouriteEvent(isFavourite: true, eventId: eventId);
+
+            eventsData.refresh();
+          }
         }
       }
     }
+    update();
+  }
+
+  //api
+  void favouriteEvent({required bool isFavourite, required int eventId}) async {
+    final token = await MySharedService().getSharedToken();
+    final phone = await MySharedService().getSharedPhone();
+    favouriteModel.eventID = eventId;
+    favouriteModel.isFavorite = isFavourite;
+    favouriteModel.mobileNumber = phone;
+    EventFavouriteProvider().favourite(
+      token: token!,
+      favouriteModel: favouriteModel,
+      beforeSend: () {},
+      onSuccess: (res) {
+        print('-----------${res.success}--------1-----${res.message}');
+        // eventsData.value = res.data!;
+      },
+      onError: (error) {
+        print('---------------$error-----------');
+      },
+    );
   }
 
   @override

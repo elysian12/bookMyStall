@@ -23,12 +23,8 @@ class EventView extends GetView<HomeController> {
     final fromMonth =
         DateFormat().format(DateTime.parse(event.fromTime!)).split(' ')[0];
     final toDay = DateTime.parse(event.toTime!).day;
-    // .split(' ')[1]
-    // .replaceRange(2, null, ' '),
 
     final fromDay = DateTime.parse(event.fromTime!).day;
-    // .split(' ')[1]
-    // .replaceRange(2, null, ' '),
 
     return Scaffold(
         backgroundColor: AppColors.whiteColor,

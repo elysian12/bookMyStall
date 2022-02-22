@@ -2,6 +2,7 @@ import 'package:bookmystall/app/modules/favourites/bindings/favourites_binding.d
 import 'package:bookmystall/app/modules/favourites/views/favourites_view.dart';
 import 'package:bookmystall/app/modules/settings/bindings/settings_binding.dart';
 import 'package:bookmystall/app/modules/settings/views/settings_view.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -55,6 +56,9 @@ class BottomNavigationController extends GetxController {
 
   @override
   void onInit() {
+    //
+
+    // Get.bottomSheet(Container());
     super.onInit();
   }
 

@@ -76,7 +76,9 @@ class LoginController extends GetxController {
             isLoading.value = false;
             countDown();
           },
-          onError: (error) {});
+          onError: (error) {
+            print(error);
+          });
     } else {
       print('----3------3---------Callled');
       LoginProvider().requestOtp(

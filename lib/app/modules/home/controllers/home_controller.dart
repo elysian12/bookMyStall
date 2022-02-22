@@ -1,6 +1,7 @@
 import 'package:bookmystall/app/data/providers/event_favourite_provider.dart';
 import 'package:bookmystall/app/data/providers/events_provider.dart';
 import 'package:bookmystall/app/data/services/sharedServices/shared_service.dart';
+import 'package:bookmystall/app/modules/favourites/controllers/favourites_controller.dart';
 import 'package:bookmystall/app/modules/home/model/city_model.dart';
 import 'package:bookmystall/app/modules/home/model/events_api_model.dart';
 import 'package:bookmystall/app/modules/home/model/favourite_model.dart';
@@ -65,6 +66,7 @@ class HomeController extends GetxController {
   }
 
   void setFavourite(index, int eventId) {
+    final favouritesController = Get.put(FavouritesController());
     for (var i = 0; i < eventsData.length; i++) {
       if (i == index) {
         if (eventsData[i].isFavorited == true) {
@@ -74,6 +76,7 @@ class HomeController extends GetxController {
         } else {
           eventsData[i].isFavorited = true;
           favouriteEvent(isFavourite: true, eventId: eventId);
+          favouritesController.eventsData.add(eventsData[i]);
           eventsData.refresh();
         }
       }

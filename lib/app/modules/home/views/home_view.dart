@@ -1,9 +1,6 @@
 import 'package:bookmystall/app/common/styles/colors.dart';
 import 'package:bookmystall/app/common/styles/text_style.dart';
-import 'package:bookmystall/app/modules/home/model/events_api_model.dart';
 import 'package:bookmystall/app/modules/home/views/widgets/event_container.dart';
-import 'package:bookmystall/app/modules/home/views/widgets/favourite_icon.dart';
-import 'package:bookmystall/app/modules/home/views/widgets/toogle.dart';
 import 'package:bookmystall/app/modules/home/views/widgets/toogle_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -107,13 +104,22 @@ class HomeView extends GetView<HomeController> {
                                       weekDay: weekDay,
                                       event: event,
                                       index: index,
+                                      isFavouriteScreen: false,
                                     ),
                                   );
                                 },
                               ),
                             )
                           : Center(
-                              child: CircularProgressIndicator(),
+                              child: Container(
+                                height: Get.height * 0.61,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text('No Events Available'),
+                                  ],
+                                ),
+                              ),
                             );
                     }),
                   );

@@ -11,6 +11,7 @@ class MyBottomBar extends GetView<BottomNavigationController> {
 
   @override
   Widget build(BuildContext context) {
+    // showCupertinoModalPopup(context: context, builder: ())
     return Theme(
       data: Theme.of(context).copyWith(
         canvasColor: AppColors.whiteColor,
