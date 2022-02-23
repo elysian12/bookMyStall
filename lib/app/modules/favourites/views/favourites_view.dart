@@ -95,8 +95,11 @@ class FavouritesView extends GetView<FavouritesController> {
                                             onTap: () {
                                               print(
                                                   '--------------------------Hello');
-                                              Get.to(() =>
-                                                  EventView(event: event));
+                                              Get.to(() => EventView(
+                                                    event: event,
+                                                    index: index,
+                                                    isFavouriteView: true,
+                                                  ));
                                             },
                                             child: EventContainer(
                                               day: day,

@@ -1,5 +1,6 @@
 import 'package:bookmystall/app/common/styles/colors.dart';
 import 'package:bookmystall/app/common/styles/text_style.dart';
+import 'package:bookmystall/app/modules/favourites/controllers/favourites_controller.dart';
 import 'package:bookmystall/app/modules/home/controllers/home_controller.dart';
 import 'package:bookmystall/app/modules/home/model/events_api_model.dart';
 import 'package:bookmystall/app/modules/home/views/widgets/event_header.dart';
@@ -14,8 +15,14 @@ import 'widgets/row_container.dart';
 
 class EventView extends GetView<HomeController> {
   final Data event;
+  final int index;
+  final bool isFavouriteView;
 
-  EventView({required this.event});
+  EventView({
+    required this.event,
+    required this.index,
+    required this.isFavouriteView,
+  });
   @override
   Widget build(BuildContext context) {
     final toMonth =
@@ -52,23 +59,40 @@ class EventView extends GetView<HomeController> {
           ),
           actions: [
             InkWell(
-              // onTap: () => Get.back(),
-              child: Container(
-                height: 36.r,
-                width: 36.r,
-                margin: EdgeInsets.only(right: 10.w),
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle, color: AppColors.whiteColor),
-                child: Icon(
-                  event.isFavorited!
-                      ? Icons.favorite
-                      : Icons.favorite_outline_outlined,
-                  color: event.isFavorited!
-                      ? AppColors.pinkColor
-                      : AppColors.fontColor,
-                ),
-              ),
-            ),
+                onTap: () {
+                  final favouritesController = Get.put(FavouritesController());
+                  isFavouriteView
+                      ? favouritesController.setFavourite(index, event.eventID!)
+                      : controller.setFavourite(index, event.eventID!);
+                },
+                child: Container(
+                  height: 36.r,
+                  width: 36.r,
+                  margin: EdgeInsets.only(right: 10.w),
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle, color: AppColors.whiteColor),
+                  child: isFavouriteView
+                      ? GetBuilder<FavouritesController>(builder: (controller) {
+                          return Icon(
+                            event.isFavorited!
+                                ? Icons.favorite
+                                : Icons.favorite_outline_outlined,
+                            color: event.isFavorited!
+                                ? AppColors.pinkColor
+                                : AppColors.fontColor,
+                          );
+                        })
+                      : GetBuilder<HomeController>(builder: (controller) {
+                          return Icon(
+                            event.isFavorited!
+                                ? Icons.favorite
+                                : Icons.favorite_outline_outlined,
+                            color: event.isFavorited!
+                                ? AppColors.pinkColor
+                                : AppColors.fontColor,
+                          );
+                        }),
+                )),
           ],
         ),
         body: SingleChildScrollView(

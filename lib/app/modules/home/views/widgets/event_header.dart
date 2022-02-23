@@ -1,3 +1,4 @@
+import 'package:bookmystall/app/modules/reportEvents/report_events.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -126,31 +127,36 @@ class EventHeader extends StatelessWidget {
               SizedBox(
                 height: 10.h,
               ),
-              Container(
-                height: 24.h,
-                width: 107.w,
-                decoration: BoxDecoration(
-                  // color: AppColors.backgroundColor,
-                  border: Border.all(
-                    color: AppColors.fontColor.withOpacity(0.6),
-                  ),
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Text(
-                      'Report Event',
-                      style: MyTextstyles.smallTextStyle.copyWith(
-                        color: AppColors.fontColor,
-                      ),
+              InkWell(
+                onTap: () {
+                  Get.to(() => ReportEventView());
+                },
+                child: Container(
+                  height: 24.h,
+                  width: 107.w,
+                  decoration: BoxDecoration(
+                    // color: AppColors.backgroundColor,
+                    border: Border.all(
+                      color: AppColors.fontColor.withOpacity(0.6),
                     ),
-                    Icon(
-                      Icons.info_outline_rounded,
-                      color: AppColors.fontColor,
-                      size: 15.h,
-                    )
-                  ],
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(
+                        'Report Event',
+                        style: MyTextstyles.smallTextStyle.copyWith(
+                          color: AppColors.fontColor,
+                        ),
+                      ),
+                      Icon(
+                        Icons.info_outline_rounded,
+                        color: AppColors.fontColor,
+                        size: 15.h,
+                      )
+                    ],
+                  ),
                 ),
               ),
               // SizedBox(

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-import '../../../common/styles/colors.dart';
-import '../../../common/styles/text_style.dart';
+import '../../common/styles/colors.dart';
+import '../../common/styles/text_style.dart';
 
 class AddEventView extends StatelessWidget {
   const AddEventView({Key? key}) : super(key: key);
@@ -35,10 +37,23 @@ class AddEventView extends StatelessWidget {
                     height: 10.h,
                   ),
                   Text(
-                    'Please visit our website\n\nto create\n\nNew Event\n\n\n\nwww.bookmystall.in',
+                    'Please visit our website\n\nto create\n\nNew Event',
                     textAlign: TextAlign.center,
                     style: TextStyle(color: AppColors.fontColor),
-                  )
+                  ),
+                  SizedBox(
+                    height: 30.h,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      launch('https://www.bookmystall.in');
+                    },
+                    child: Text(
+                      'www.bookmystall.in',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: AppColors.fontColor),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -46,6 +61,9 @@ class AddEventView extends StatelessWidget {
               height: 20.h,
             ),
             InkWell(
+              onTap: () {
+                Get.back();
+              },
               child: Container(
                 margin: EdgeInsets.symmetric(horizontal: 30.w),
                 alignment: Alignment.center,

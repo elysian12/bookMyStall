@@ -96,7 +96,11 @@ class HomeView extends GetView<HomeController> {
                                   return InkWell(
                                     onTap: () {
                                       print('--------------------------Hello');
-                                      Get.to(() => EventView(event: event));
+                                      Get.to(() => EventView(
+                                            event: event,
+                                            index: index,
+                                            isFavouriteView: false,
+                                          ));
                                     },
                                     child: EventContainer(
                                       day: day,
@@ -116,7 +120,8 @@ class HomeView extends GetView<HomeController> {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text('No Events Available'),
+                                    // Text('No Events Available'),
+                                    CircularProgressIndicator()
                                   ],
                                 ),
                               ),

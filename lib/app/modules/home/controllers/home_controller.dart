@@ -6,16 +6,20 @@ import 'package:bookmystall/app/modules/favourites/controllers/favourites_contro
 import 'package:bookmystall/app/modules/home/model/city_model.dart';
 import 'package:bookmystall/app/modules/home/model/events_api_model.dart';
 import 'package:bookmystall/app/modules/home/model/favourite_model.dart';
+import 'package:bookmystall/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../common/costants/helper.dart';
+import '../views/widgets/popup_action.dart';
 
 class HomeController extends GetxController {
   late PageController listPageController;
   FavouriteModel favouriteModel = FavouriteModel();
   late ScrollController scrollController;
+  RxBool isLoading = true.obs;
+
   final List<CityModel> cities = [
     CityModel(
         img: '${Helper.homeIcon}1.png', label: 'Banglore', isSelected: false),
@@ -103,7 +107,7 @@ class HomeController extends GetxController {
   }
 
   //api functions
-  void requestEvents(String? city) async {
+  Future<void> requestEvents(String? city) async {
     final token = await MySharedService().getSharedToken();
     EventProvider().requestEvent(
       cityName: city!,
@@ -113,8 +117,10 @@ class HomeController extends GetxController {
         print('-----------${res.success}--------1-----${res.message}');
         if (res.success!) {
           eventsData.value = res.data!;
+          isLoading.value = false;
         } else {
           eventsData.value = [];
+          isLoading.value = false;
         }
       },
       onError: (error) {
@@ -143,83 +149,42 @@ class HomeController extends GetxController {
     );
   }
 
-  void showCity() async {
+  void showCity(index) async {
     // requestEvents(cities[3].label);
     final sharedCity = await MySharedService().getSharedCity();
     if (sharedCity == null) {
-      Get.dialog<Dialog>(Dialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        insetPadding: EdgeInsets.symmetric(
-          horizontal: 100.w,
-          vertical: 250.h,
-        ),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Column(
-              children: List.generate(cities.length + 1, (index) {
-            return cities.length == index
-                ? InkWell(
-                    onTap: () {
-                      requestEvents(cities[3].label);
-                      cities[3].isSelected = true;
-                      update();
-                      Get.back();
-                    },
-                    child: Container(
-                      alignment: Alignment.center,
-                      // width: Get.width * 0.05,
-                      // color: Colors.red,
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 14.h),
-                        child: Text(
-                          'Cancel',
-                          style: MyTextstyles.cardTextStyle.copyWith(
-                            fontWeight: FontWeight.normal,
-                            fontSize: 18.sp,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
-                : InkWell(
-                    onTap: () {
-                      requestEvents(cities[index].label);
-                      cities[index].isSelected = true;
-                      MySharedService().setSharedCity(cities[index].label);
-                      update();
-                      Get.back();
-                    },
-                    child: Container(
-                      alignment: Alignment.center,
-                      // width: Get.width * 0.05,
-                      // color: Colors.red,
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 12.h),
-                        child: Text(
-                          cities[index].label,
-                          style: MyTextstyles.cardTextStyle.copyWith(
-                            fontWeight: FontWeight.normal,
-                            fontSize: 18.sp,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-          })),
-        ),
-      ));
+      MySharedService().setSharedCity(cities[index].label);
+      await requestEvents(cities[index].label).then((value) {
+        cities[index].isSelected = true;
+        Get.offAllNamed(Routes.BOTTOMNAVIGATION);
+      });
+      update();
     } else {
       requestEvents(sharedCity);
+
+      // Get.toNamed(Routes.BOTTOMNAVIGATION);
       for (var i = 0; i < cities.length; i++) {
         if (sharedCity == cities[i].label) {
           cities[i].isSelected = true;
+          isLoading.value = false;
+          update();
+        }
+      }
+    }
+  }
+
+  void showDefaultCity() async {
+    // requestEvents(cities[3].label);
+    final sharedCity = await MySharedService().getSharedCity();
+    if (sharedCity == null) {
+      return;
+    } else {
+      requestEvents(sharedCity);
+      // Get.toNamed(Routes.BOTTOMNAVIGATION);
+      for (var i = 0; i < cities.length; i++) {
+        if (sharedCity == cities[i].label) {
+          cities[i].isSelected = true;
+          isLoading.value = false;
           update();
         }
       }
@@ -236,7 +201,7 @@ class HomeController extends GetxController {
 
   @override
   void onReady() {
-    showCity();
+    showDefaultCity();
     super.onReady();
   }
 

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bookmystall/app/data/providers/login_provider.dart';
 import 'package:bookmystall/app/data/services/sharedServices/shared_service.dart';
+import 'package:bookmystall/app/modules/home/views/widgets/popup_action.dart';
 import 'package:bookmystall/app/modules/login/models/verify_otp_model.dart';
 import 'package:bookmystall/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
@@ -129,7 +130,8 @@ class LoginController extends GetxController {
                     .setSharedService(res.userData!.authToken!)
                     .then((value) {
                   print('---------Shared service is compledted---------');
-                  Get.offAllNamed(Routes.BOTTOMNAVIGATION);
+                  // Get.offAllNamed(Routes.BOTTOMNAVIGATION);
+                  Get.offAll(PopUpAction());
                 });
               } else {
                 Get.dialog<AlertDialog>(AlertDialog(

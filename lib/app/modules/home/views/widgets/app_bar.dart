@@ -1,4 +1,4 @@
-import 'package:bookmystall/app/modules/login/addEvents/add_events.dart';
+import 'package:bookmystall/app/modules/addEvents/add_events.dart';
 import 'package:bookmystall/app/modules/notification/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
