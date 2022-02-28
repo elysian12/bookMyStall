@@ -1,3 +1,4 @@
+import 'package:bookmystall/app/modules/home/views/event_verified.dart';
 import 'package:bookmystall/app/modules/reportEvents/report_events.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -55,33 +56,40 @@ class EventHeader extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      height: 24.h,
-                      width: 110.w,
-                      decoration: BoxDecoration(
-                        // color: AppColors.backgroundColor,
-                        border: Border.all(
-                          color: AppColors.fontColor.withOpacity(0.6),
-                        ),
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Text(
-                            'Event Verified',
-                            style: MyTextstyles.smallTextStyle.copyWith(
-                              color: AppColors.fontColor,
+                    event.isApproved!
+                        ? Container(
+                            height: 24.h,
+                            width: 110.w,
+                            decoration: BoxDecoration(
+                              // color: AppColors.backgroundColor,
+                              border: Border.all(
+                                color: AppColors.fontColor.withOpacity(0.6),
+                              ),
+                              borderRadius: BorderRadius.circular(16),
                             ),
-                          ),
-                          Icon(
-                            Icons.clear,
-                            color: AppColors.fontColor,
-                            size: 15.h,
-                          )
-                        ],
-                      ),
-                    ),
+                            child: InkWell(
+                              onTap: () {
+                                Get.to(() => EventVerifiedView());
+                              },
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Text(
+                                    'Event Verified',
+                                    style: MyTextstyles.smallTextStyle.copyWith(
+                                      color: AppColors.fontColor,
+                                    ),
+                                  ),
+                                  Icon(
+                                    Icons.clear,
+                                    color: AppColors.fontColor,
+                                    size: 15.h,
+                                  )
+                                ],
+                              ),
+                            ))
+                        : SizedBox.shrink(),
                     Spacer(),
                     Text(
                       'Event ID : ${event.eventID}',

@@ -9,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:screenshot/screenshot.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'widgets/row_container.dart';
@@ -25,6 +26,11 @@ class EventView extends GetView<HomeController> {
   });
   @override
   Widget build(BuildContext context) {
+    // controller.currentEventLat =
+    //     event.venue == null ? null : double.parse(event.venue!.latitude!);
+    // controller.currentEventLong =
+    //     event.venue == null ? null : double.parse(event.venue!.longitude!);
+    // controller.calculateDistance();
     final toMonth =
         DateFormat().format(DateTime.parse(event.toTime!)).split(' ')[0];
     final fromMonth =
@@ -32,6 +38,15 @@ class EventView extends GetView<HomeController> {
     final toDay = DateTime.parse(event.toTime!).day;
 
     final fromDay = DateTime.parse(event.fromTime!).day;
+
+    final toTimeHour = DateFormat()
+        .format(DateTime.parse(event.toTime!))
+        .split(' ')[3]
+        .split(':')[0];
+    final fromTimeHour = DateFormat()
+        .format(DateTime.parse(event.fromTime!))
+        .split(' ')[3]
+        .split(':')[0];
 
     return Scaffold(
         backgroundColor: AppColors.whiteColor,
@@ -99,8 +114,11 @@ class EventView extends GetView<HomeController> {
           child: Column(
             // alignment: Alignment.center,
             children: [
-              EventHeader(
-                event: event,
+              Screenshot(
+                controller: controller.screenshotController,
+                child: EventHeader(
+                  event: event,
+                ),
               ),
               Padding(
                 padding: EdgeInsets.only(left: 10.w, right: 10.w),
@@ -150,19 +168,20 @@ class EventView extends GetView<HomeController> {
                     SizedBox(
                       height: 5.h,
                     ),
-                    Text('10 am - 8 pm', style: MyTextstyles.mediumTextStyle),
+                    Text('$fromTimeHour am - $toTimeHour pm',
+                        style: MyTextstyles.mediumTextStyle),
                     SizedBox(
                       height: 5.h,
                     ),
-                    Text(
-                      '3.2Kms from here.',
-                      style: MyTextstyles.mediumTextStyle.copyWith(
-                        color: Colors.green,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
+                    // Text(
+                    //   '${controller.currentDistance}Kms from here.',
+                    //   style: MyTextstyles.mediumTextStyle.copyWith(
+                    //     color: Colors.green,
+                    //   ),
+                    // ),
+                    // SizedBox(
+                    //   height: 10.h,
+                    // ),
                     Text(
                       'Visitors Expected ${event.minExpectedVisitors}',
                       style: MyTextstyles.mediumTextStyle.copyWith(
@@ -246,16 +265,21 @@ class EventView extends GetView<HomeController> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Container(
-                      decoration: BoxDecoration(
-                          border: Border.all(),
-                          borderRadius: BorderRadius.circular(6)),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 40.w,
-                          vertical: 8.h,
+                    InkWell(
+                      onTap: () {
+                        controller.ssAndShare(event.eventName!);
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            border: Border.all(),
+                            borderRadius: BorderRadius.circular(6)),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 40.w,
+                            vertical: 8.h,
+                          ),
+                          child: Text('SHARE'),
                         ),
-                        child: Text('SHARE'),
                       ),
                     ),
                     InkWell(

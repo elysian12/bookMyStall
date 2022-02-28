@@ -1,8 +1,9 @@
 import 'package:bookmystall/app/common/widgets/loading_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class LoadingOverlay extends StatelessWidget {
-  final bool isLoading;
+  final RxBool isLoading;
   final Widget? child;
   const LoadingOverlay({
     Key? key,
@@ -13,6 +14,8 @@ class LoadingOverlay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return isLoading ? LoadingScreen() : child!;
+    return Obx(() {
+      return isLoading.value ? LoadingScreen() : child!;
+    });
   }
 }

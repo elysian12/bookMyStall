@@ -16,6 +16,10 @@ class FavouritesView extends GetView<FavouritesController> {
   @override
   Widget build(BuildContext context) {
     // final homeController = Get.put(HomeController());
+    if (controller.favouritePageController.hasClients) {
+      controller.onClose();
+      controller.onInit();
+    }
     return Scaffold(
         appBar: AppBar(
           toolbarHeight: 80.h,
@@ -54,7 +58,9 @@ class FavouritesView extends GetView<FavouritesController> {
         ),
         body: Column(
           children: [
-            ToggleWidget(),
+            ToggleWidget(
+              isFavouriteView: true,
+            ),
             SizedBox(
               height: 10.h,
             ),
@@ -62,13 +68,14 @@ class FavouritesView extends GetView<FavouritesController> {
               width: Get.width,
               height: Get.height * 0.732.h,
               child: PageView.builder(
-                  // controller: controller.pageController,
+                  controller: controller.favouritePageController,
                   onPageChanged: (pageIndex) {
-                    // controller.setFilter(pageIndex);
+                    controller.changeFilter(pageIndex);
                   },
                   itemCount: controller.filterToggle.length,
                   itemBuilder: (context, int index) {
                     return SingleChildScrollView(
+                      // controller: ScrollController(),
                       child: Obx(() {
                         return controller.eventsData.isNotEmpty
                             ? Column(
@@ -85,24 +92,24 @@ class FavouritesView extends GetView<FavouritesController> {
                                     final weekDay =
                                         df.format(dateTime).split(' ')[0];
 
-                                    final day = DateFormat()
-                                        .format(DateTime.parse(event.toTime!))
-                                        .split(' ')[1];
-                                    print(DateFormat()
-                                        .format(DateTime.parse(event.toTime!)));
+                                    final day =
+                                        DateTime.parse(event.toTime!).day;
+                                    print(day);
                                     return event.isFavorited!
                                         ? InkWell(
                                             onTap: () {
                                               print(
                                                   '--------------------------Hello');
-                                              Get.to(() => EventView(
-                                                    event: event,
-                                                    index: index,
-                                                    isFavouriteView: true,
-                                                  ));
+                                              Get.to(
+                                                () => EventView(
+                                                  event: event,
+                                                  index: index,
+                                                  isFavouriteView: true,
+                                                ),
+                                              );
                                             },
                                             child: EventContainer(
-                                              day: day,
+                                              day: day.toString(),
                                               month: month,
                                               weekDay: weekDay,
                                               event: event,

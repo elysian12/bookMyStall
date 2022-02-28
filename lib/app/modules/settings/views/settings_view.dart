@@ -1,6 +1,7 @@
 import 'package:bookmystall/app/common/styles/colors.dart';
 import 'package:bookmystall/app/common/styles/text_style.dart';
 import 'package:bookmystall/app/modules/bottomnavigation/controllers/bottomnavigation_controller.dart';
+import 'package:bookmystall/app/modules/settings/views/change_city.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -20,21 +21,21 @@ class SettingsView extends GetView<SettingsController> {
           // iconTheme: ,
           leadingWidth: 50,
 
-          leading: InkWell(
-            // onTap: () => Get.back(),
-            child: Container(
-              height: 36.r,
-              width: 36.r,
-              margin: EdgeInsets.only(left: 10.w),
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle, color: AppColors.whiteColor),
-              child: Icon(
-                Icons.arrow_back_ios_new_rounded,
-                color: Colors.black,
-                size: 20.r,
-              ),
-            ),
-          ),
+          // leading: InkWell(
+          //   // onTap: () => Get.back(),
+          //   child: Container(
+          //     height: 36.r,
+          //     width: 36.r,
+          //     margin: EdgeInsets.only(left: 10.w),
+          //     decoration: BoxDecoration(
+          //         shape: BoxShape.circle, color: AppColors.whiteColor),
+          //     child: Icon(
+          //       Icons.arrow_back_ios_new_rounded,
+          //       color: Colors.black,
+          //       size: 20.r,
+          //     ),
+          //   ),
+          // ),
         ),
         body: SafeArea(
           child: Padding(
@@ -60,57 +61,62 @@ class SettingsView extends GetView<SettingsController> {
                   thickness: 1,
                   color: AppColors.fontColor,
                 ),
-                SizedBox(
-                  height: 15.h,
-                ),
-                Text(
-                  'Change City',
-                  style: MyTextstyles.mediumTextStyle.copyWith(
-                    fontSize: Get.width / 23,
-                    fontWeight: FontWeight.w300,
+                InkWell(
+                  onTap: () {
+                    Get.to(() => ChangeCityView());
+                  },
+                  child: Padding(
+                    padding:
+                        EdgeInsets.symmetric(vertical: 15.h, horizontal: 80.w),
+                    child: Text(
+                      'Change City',
+                      style: MyTextstyles.mediumTextStyle.copyWith(
+                        fontSize: Get.width / 23,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 15.h,
                 ),
                 Divider(
                   thickness: 1,
                   color: AppColors.fontColor,
-                ),
-                SizedBox(
-                  height: 15.h,
                 ),
                 InkWell(
                   onTap: () {
                     Get.put(BottomNavigationController()).changePage(1);
                   },
-                  child: Text(
-                    'Saved Events',
-                    style: MyTextstyles.mediumTextStyle.copyWith(
-                      fontSize: Get.width / 23,
-                      fontWeight: FontWeight.w300,
+                  child: Padding(
+                    padding:
+                        EdgeInsets.symmetric(vertical: 15.h, horizontal: 80.w),
+                    child: Text(
+                      'Saved Events',
+                      style: MyTextstyles.mediumTextStyle.copyWith(
+                        fontSize: Get.width / 23,
+                        fontWeight: FontWeight.w300,
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 15.h,
                 ),
                 Divider(
                   thickness: 1,
                   color: AppColors.fontColor,
                 ),
-                SizedBox(
-                  height: 15.h,
-                ),
-                Text(
-                  'Feed back',
-                  style: MyTextstyles.mediumTextStyle.copyWith(
-                    fontSize: Get.width / 23,
-                    fontWeight: FontWeight.w300,
+                InkWell(
+                  onTap: () {},
+                  child: Padding(
+                    padding:
+                        EdgeInsets.symmetric(vertical: 15.h, horizontal: 80.w),
+                    child: Text(
+                      'Feed back',
+                      style: MyTextstyles.mediumTextStyle.copyWith(
+                        fontSize: Get.width / 23,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
                   ),
                 ),
                 SizedBox(
-                  height: 200.h,
+                  height: 140.h,
                 ),
                 Text(
                   'Developed by',

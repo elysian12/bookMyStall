@@ -1,5 +1,7 @@
-<svg id="Notifications_Icon" data-name="Notifications Icon" xmlns="http://www.w3.org/2000/svg" width="27.136" height="25.329" viewBox="0 0 27.136 25.329">
-  <path id="Icon_ionic-md-notifications-outline" data-name="Icon ionic-md-notifications-outline" d="M16.4,7.788a8.8,8.8,0,0,1,1.456.273,6.205,6.205,0,0,1,4.73,6.08v7.77l.568.57.474.476H9.053l.474-.476.568-.57V14.14a6.205,6.205,0,0,1,4.73-6.08,10.779,10.779,0,0,1,1.456-.273m.061-4.413a1.861,1.861,0,0,0-1.891,1.9v.886a8.209,8.209,0,0,0-6.3,7.979v6.965L5.625,23.638V24.9H27.057V23.638l-2.521-2.533V14.14a8.209,8.209,0,0,0-6.3-7.979V5.275a1.861,1.861,0,0,0-1.891-1.9Zm2.521,22.8H13.82a2.521,2.521,0,1,0,5.043,0Z" transform="translate(0.079 -3.375)"/>
-  <circle id="Ellipse_145" data-name="Ellipse 145" cx="9" cy="9" r="9" transform="translate(0 0.057)" fill="#3aa6ee"/>
-  <text id="_3" data-name="3" transform="translate(9 13.057)" fill="#fff" font-size="14" font-family="Helvetica" letter-spacing="0.12em"><tspan x="-3.893" y="0">3</tspan></text>
+<svg xmlns="http://www.w3.org/2000/svg" width="21.432" height="25.329" viewBox="0 0 21.432 25.329">
+  <g id="Group_245" data-name="Group 245" transform="translate(-336.575 -43.823)">
+    <g id="Notifications_Icon" data-name="Notifications Icon" transform="translate(330.871 43.823)">
+      <path id="Icon_ionic-md-notifications-outline" data-name="Icon ionic-md-notifications-outline" d="M16.4,7.788a8.8,8.8,0,0,1,1.456.273,6.205,6.205,0,0,1,4.73,6.08v7.77l.568.57.474.476H9.053l.474-.476.568-.57V14.14a6.205,6.205,0,0,1,4.73-6.08,10.779,10.779,0,0,1,1.456-.273m.061-4.413a1.861,1.861,0,0,0-1.891,1.9v.886a8.209,8.209,0,0,0-6.3,7.979v6.965L5.625,23.638V24.9H27.057V23.638l-2.521-2.533V14.14a8.209,8.209,0,0,0-6.3-7.979V5.275a1.861,1.861,0,0,0-1.891-1.9Zm2.521,22.8H13.82a2.521,2.521,0,1,0,5.043,0Z" transform="translate(0.079 -3.375)"/>
+    </g>
+  </g>
 </svg>

@@ -1,5 +1,6 @@
 import 'package:bookmystall/app/common/styles/colors.dart';
 import 'package:bookmystall/app/common/styles/text_style.dart';
+import 'package:bookmystall/app/common/widgets/loading_overlay.dart';
 import 'package:bookmystall/app/modules/home/views/widgets/event_container.dart';
 import 'package:bookmystall/app/modules/home/views/widgets/toogle_container.dart';
 import 'package:flutter/material.dart';
@@ -14,8 +15,13 @@ import 'widgets/app_bar.dart';
 
 class HomeView extends GetView<HomeController> {
   final homeController = Get.put(HomeController());
+
   @override
   Widget build(BuildContext context) {
+    if (controller.homePageController.hasClients) {
+      controller.onClose();
+      controller.onInit();
+    }
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       appBar: MyAppBar(),
@@ -46,89 +52,94 @@ class HomeView extends GetView<HomeController> {
               ),
             ),
           ),
-          ToggleWidget(),
+          ToggleWidget(
+            isFavouriteView: false,
+          ),
           Padding(
             padding: EdgeInsets.only(top: 10.h),
-            child: Obx(() {
-              return Text(
-                '${controller.eventsData.length} events available',
-                style: MyTextstyles.cardTextStyle.copyWith(
-                  color: Color(0xff50575B),
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.w700,
-                ),
-              );
-            }),
+            child: Obx(() => Text(
+                  '${controller.eventsData.length} events available',
+                  style: MyTextstyles.cardTextStyle.copyWith(
+                    color: Color(0xff50575B),
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w700,
+                  ),
+                )),
           ),
           SizedBox(
             width: Get.width,
             height: Get.height * 0.61,
-            child: PageView.builder(
-                controller: controller.listPageController,
-                onPageChanged: (pageIndex) {
-                  controller.setFilter(pageIndex);
-                },
-                itemCount: controller.filterToggle.length,
-                itemBuilder: (context, int index) {
-                  return SingleChildScrollView(
-                    controller: homeController.scrollController,
-                    child: Obx(() {
-                      return controller.eventsData.isNotEmpty
-                          ? Column(
-                              children: List.generate(
-                                controller.eventsData.length,
-                                (index) {
-                                  final event = controller.eventsData[index];
-                                  final month = DateFormat()
-                                      .format(DateTime.parse(event.toTime!))
-                                      .split(' ')[0];
-                                  final dateTime =
-                                      DateTime.parse(event.toTime!);
-                                  final df = DateFormat.yMMMMEEEEd();
-                                  final weekDay =
-                                      df.format(dateTime).split(' ')[0];
+            child: LoadingOverlay(
+              isLoading: controller.isLoading,
+              child: PageView.builder(
+                  controller: controller.homePageController,
+                  onPageChanged: (pageIndex) {
+                    controller.changeFilter(pageIndex);
+                  },
+                  itemCount: controller.filterToggle.length,
+                  itemBuilder: (context, int index) {
+                    return SingleChildScrollView(
+                      // controller: homeController.scrollController,
+                      child: Obx(() {
+                        return controller.eventsData.isNotEmpty
+                            ? Column(
+                                children: List.generate(
+                                  controller.eventsData.length,
+                                  (index) {
+                                    final event = controller.eventsData[index];
+                                    final month = DateFormat()
+                                        .format(DateTime.parse(event.toTime!))
+                                        .split(' ')[0];
+                                    final dateTime =
+                                        DateTime.parse(event.toTime!);
+                                    final df = DateFormat.yMMMMEEEEd();
+                                    final weekDay =
+                                        df.format(dateTime).split(' ')[0];
 
-                                  final day = DateFormat()
-                                      .format(DateTime.parse(event.toTime!))
-                                      .split(' ')[1];
-                                  print(DateFormat()
-                                      .format(DateTime.parse(event.toTime!)));
-                                  return InkWell(
-                                    onTap: () {
-                                      print('--------------------------Hello');
-                                      Get.to(() => EventView(
-                                            event: event,
-                                            index: index,
-                                            isFavouriteView: false,
-                                          ));
-                                    },
-                                    child: EventContainer(
-                                      day: day,
-                                      month: month,
-                                      weekDay: weekDay,
-                                      event: event,
-                                      index: index,
-                                      isFavouriteScreen: false,
-                                    ),
-                                  );
-                                },
-                              ),
-                            )
-                          : Center(
-                              child: Container(
-                                height: Get.height * 0.61,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    // Text('No Events Available'),
-                                    CircularProgressIndicator()
-                                  ],
+                                    final day = DateFormat()
+                                        .format(DateTime.parse(event.toTime!))
+                                        .split(' ')[1];
+                                    print(DateFormat()
+                                        .format(DateTime.parse(event.toTime!)));
+                                    return InkWell(
+                                      onTap: () {
+                                        print(
+                                            '--------------------------Hello');
+                                        Get.to(() => EventView(
+                                              event: event,
+                                              index: index,
+                                              isFavouriteView: false,
+                                            ));
+                                      },
+                                      child: EventContainer(
+                                        // key: UniqueKey(),
+                                        day: day,
+                                        month: month,
+                                        weekDay: weekDay,
+                                        event: event,
+                                        index: index,
+                                        isFavouriteScreen: false,
+                                      ),
+                                    );
+                                  },
                                 ),
-                              ),
-                            );
-                    }),
-                  );
-                }),
+                              )
+                            : Center(
+                                child: Container(
+                                  height: Get.height * 0.61,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text('No Events Available'),
+                                      // CircularProgressIndicator()
+                                    ],
+                                  ),
+                                ),
+                              );
+                      }),
+                    );
+                  }),
+            ),
           )
         ],
       ),

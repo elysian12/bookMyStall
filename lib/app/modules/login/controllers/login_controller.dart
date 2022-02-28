@@ -57,7 +57,7 @@ class LoginController extends GetxController {
     }
 
     _locationData = await location.getLocation();
-    print(_locationData.time);
+    print(_locationData.latitude);
   }
 
   RxBool isLoading = true.obs;
